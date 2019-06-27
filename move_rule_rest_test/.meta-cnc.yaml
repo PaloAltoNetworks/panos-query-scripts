@@ -1,5 +1,5 @@
-name: move_rule_rest_test
-label: Move security rule including top or bottom
+name: move_rule_rest
+label: Move security rule
 
 description: |
   This skillet demonstrates a simple REST api call to move a firewall rule
@@ -43,10 +43,6 @@ variables:
         value: after
       - key: before
         value: before
-      - key: top
-        value: top
-      - key: bottom
-        value: bottom
 
 
 snippets:
@@ -57,7 +53,7 @@ snippets:
       - name: api_key
         capture_pattern: result/key
   - name: move_rule
-    path: https://{{ TARGET_IP }}/api/?type=config&action=move&xpath=/config/devices/entry/vsys/entry[@name='vsys1']/rulebase/security/rules/entry[@name='{{ rule_name }}']&where={{ where }}{%- if where == 'before' or where == 'after' %}&dst={{ ref_rule }}{% endif %}&key={{ api_key }}
+    path: https://{{ TARGET_IP }}/api/?type=config&action=move&xpath=/config/devices/entry/vsys/entry[@name='vsys1']/rulebase/security/rules/entry[@name='{{ rule_name }}']&where={{ where }}&dst={{ ref_rule }}&key={{ api_key }}
     output_type: xml
     #outputs:
     #  - name: profileName
