@@ -1,5 +1,5 @@
 name: move_rule_rest_test
-label: Move security rule including top or bottom
+label: Move security rule
 
 description: |
   This skillet demonstrates a simple REST api call to move a firewall rule
