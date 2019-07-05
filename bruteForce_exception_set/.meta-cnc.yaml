@@ -23,5 +23,5 @@ variables:
 
 snippets:
   - name: bruteForce_exception.conf
-  - file: bruteForce_exception.conf
+    file: bruteForce_exception.conf
 
