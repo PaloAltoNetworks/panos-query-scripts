@@ -111,9 +111,9 @@ def main():
     # python skillets currently use CLI arguments to get input from the operator / user. Each argparse argument long
     # name must match a variable in the .meta-cnc file directly
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--firewall", help="IP address of the firewall", type=str)
-    parser.add_argument("-u", "--username", help="Firewall Username", type=str)
-    parser.add_argument("-p", "--password", help="Firewall Password", type=str)
+    parser.add_argument("-f", "--TARGET_IP", help="IP address of the firewall", type=str)
+    parser.add_argument("-u", "--TARGET_USERNAME", help="Firewall Username", type=str)
+    parser.add_argument("-p", "--TARGET_PASSWORD", help="Firewall Password", type=str)
     args = parser.parse_args()
 
     if len(sys.argv) < 2:
@@ -121,9 +121,9 @@ def main():
         parser.exit()
         exit(1)
 
-    fw_ip = args.firewall
-    username = args.username
-    password = args.password
+    fw_ip = args.TARGET_IP
+    username = args.TARGET_USERNAME
+    password = args.TARGET_PASSWORD
 
     # create fw object using pan-python class
     fw = pan.xapi.PanXapi(api_username=username, api_password=password, hostname=fw_ip)
