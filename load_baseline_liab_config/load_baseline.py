@@ -51,7 +51,7 @@ def template_render(filename, context):
     :return: return the rendered xml file and set conf file
     '''
 
-    print('..creating template for {0}'.format(filename))
+    print('creating template for {0}'.format(filename))
 
     env = Environment(loader=FileSystemLoader('./'))
 
@@ -118,7 +118,7 @@ def import_conf(ip_addr, api_key, import_file):
     :return:
     '''
 
-    #print('importing {0} to device'.format(import_file))
+    print('importing configuration to device')
 
     url = "https://{0}/api".format(ip_addr)
     params = {
@@ -135,6 +135,8 @@ def import_conf(ip_addr, api_key, import_file):
 
     print(r.text)
 
+    return r
+
 def load_conf(device, filename):
     '''
     load file in device as candidate config
@@ -147,6 +149,8 @@ def load_conf(device, filename):
     device.op(cmd='<load><config><from>{0}</from></config></load>'.format(filename))
     results = device.xml_result()
     print(results)
+
+    return(results)
 
 def commit(device):
     '''
@@ -180,7 +184,6 @@ def main():
 
 
     args = parser.parse_args()
-    print(type(args))
 
     if len(sys.argv) < 2:
         parser.print_help()
@@ -203,15 +206,23 @@ def main():
     clean_config = template_render(filename, vars(args))
 
     # import config
-    import_conf(fw_ip, api_key, clean_config)
+    good_import = import_conf(fw_ip, api_key, clean_config)
+
+    if 'success' not in good_import.text:
+        print('error importing configuration')
+        exit(1)
 
     # load config
-    load_conf(fw, filename)
+    good_load = load_conf(fw, filename)
+
+    if 'loaded' not in good_load:
+        print('error loading configuration')
+        exit(1)
 
     # commit config
     commit(fw)
 
-    print('\nbaseline load complete')
+    print('baseline load complete')
 
 
 if __name__ == '__main__':
