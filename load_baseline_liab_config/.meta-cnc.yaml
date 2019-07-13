@@ -1,9 +1,9 @@
-name: ngfw_content_update
+name: import_baseline_config
 # label used for menu selection
-label: NGFW Content Updates
+label: Import and Load Starter Lab-in-a-Box Baseline Configuration
 
 description: |
-  This skillet will use the firewall API to check, download, and install latest updates
+  This skillet imports, loads, and commits a starter LiaB baseline config for skillet loading and testing
 
 type: python3
 
@@ -31,8 +31,12 @@ variables:
     type_hint: text
   - name: TARGET_PASSWORD
     description: NGFW Password
-    default:
+    default: admin
     type_hint: password
+  - name: hostname
+    description: NGFW hostname
+    default: pan-panos-vm50
+    type_hint: text
 
 
 # Snippets is an ordered list of configuration xml fragments that will be pushed to the PAN-OS NGFW. The xpath
@@ -40,5 +44,5 @@ variables:
 # to load and parse. Jinja2 style variables will be variable interpolated using the values of the 'variables' defined
 # in the 'variables' section.
 snippets:
-  - name: content_update
-    file: content_update.py
+  - name: load_baseline
+    file: load_baseline.py

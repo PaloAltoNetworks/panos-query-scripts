@@ -11,7 +11,7 @@ extends:
 labels:
   collection:
     - Configure
-    - NGFW
+    - PANOS
 
 variables:
   - name: TARGET_IP

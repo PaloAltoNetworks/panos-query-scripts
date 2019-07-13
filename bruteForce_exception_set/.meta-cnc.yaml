@@ -12,7 +12,7 @@ extends:
 labels:
   collection:
     - Configure
-    - NGFW
+    - PANOS
 
 variables:
   - name: profile_name
