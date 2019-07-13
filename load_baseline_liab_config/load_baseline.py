@@ -167,7 +167,7 @@ def commit(device):
 
 def main():
     '''
-    simple set of api calls to update fw to latest content versions
+    simple set of api calls to load a baseline clean config to LiaB
     '''
 
     # python skillets currently use CLI arguments to get input from the operator / user. Each argparse argument long
