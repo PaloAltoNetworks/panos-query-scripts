@@ -180,7 +180,7 @@ def main():
     parser.add_argument("-f", "--TARGET_IP", help="IP address of the firewall", type=str)
     parser.add_argument("-u", "--TARGET_USERNAME", help="Firewall Username", type=str)
     parser.add_argument("-p", "--TARGET_PASSWORD", help="Firewall Password", type=str)
-    parser.add_argument("-n", "--hostname", help="Firewall hostname", type=str)
+    parser.add_argument("-n", "--FW_NAME", help="Firewall hostname", type=str)
 
 
     args = parser.parse_args()
@@ -193,7 +193,7 @@ def main():
     fw_ip = args.TARGET_IP
     username = args.TARGET_USERNAME
     password = args.TARGET_PASSWORD
-    hostname = args.hostname
+    hostname = args.FW_NAME
     filename = 'baseline_config.xml'
 
     # create fw object using pan-python class

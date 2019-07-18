@@ -34,7 +34,7 @@ variables:
     description: NGFW Password
     default: admin
     type_hint: password
-  - name: hostname
+  - name: FW_NAME
     description: NGFW hostname
     default: pan-panos-vm50
     type_hint: text
