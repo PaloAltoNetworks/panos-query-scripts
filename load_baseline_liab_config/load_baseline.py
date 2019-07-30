@@ -181,6 +181,8 @@ def main():
     parser.add_argument("-u", "--TARGET_USERNAME", help="Firewall Username", type=str)
     parser.add_argument("-p", "--TARGET_PASSWORD", help="Firewall Password", type=str)
     parser.add_argument("-n", "--FW_NAME", help="Firewall hostname", type=str)
+    parser.add_argument("-n", "--DNS_1", help="primary dns server", type=str)
+    parser.add_argument("-n", "--DNS_2", help="secondary dns server", type=str)
 
 
     args = parser.parse_args()
@@ -194,6 +196,8 @@ def main():
     username = args.TARGET_USERNAME
     password = args.TARGET_PASSWORD
     hostname = args.FW_NAME
+    #DNS_1 = args.DNS_1
+    #DNS_2 = args.DNS_1
     filename = 'baseline_config.xml'
 
     # create fw object using pan-python class
