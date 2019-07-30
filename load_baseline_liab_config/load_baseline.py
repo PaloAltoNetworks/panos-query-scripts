@@ -181,8 +181,8 @@ def main():
     parser.add_argument("-u", "--TARGET_USERNAME", help="Firewall Username", type=str)
     parser.add_argument("-p", "--TARGET_PASSWORD", help="Firewall Password", type=str)
     parser.add_argument("-n", "--FW_NAME", help="Firewall hostname", type=str)
-    parser.add_argument("-n", "--DNS_1", help="primary dns server", type=str)
-    parser.add_argument("-n", "--DNS_2", help="secondary dns server", type=str)
+    parser.add_argument("-d1", "--DNS_1", help="primary dns server", type=str)
+    parser.add_argument("-d2", "--DNS_2", help="secondary dns server", type=str)
 
 
     args = parser.parse_args()
