@@ -68,8 +68,8 @@
           <default-gateway>192.168.55.2</default-gateway>
           <dns-setting>
             <servers>
-              <primary>192.168.55.2</primary>
-              <secondary>4.2.2.2</secondary>
+              <primary>{{ DNS_1 }}</primary>
+              <secondary>{{ DNS_2 }}</secondary>
             </servers>
           </dns-setting>
         </system>

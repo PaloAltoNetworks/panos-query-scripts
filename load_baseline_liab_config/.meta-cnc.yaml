@@ -38,6 +38,14 @@ variables:
     description: NGFW hostname
     default: pan-panos-vm50
     type_hint: text
+  - name: DNS_1
+    description: primary dns server
+    default: 192.168.55.2
+    type_hint: text
+  - name: DNS_2
+    description: secondary dns server
+    default: 4.2.2.2
+    type_hint: text
 
 
 # Snippets is an ordered list of configuration xml fragments that will be pushed to the PAN-OS NGFW. The xpath
