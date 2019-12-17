@@ -5,7 +5,7 @@ label: Enable template and shared policy - device-groups for panorama configurat
 description: |
   This operational command sets a firewall to enable templates and device-groups
 
-type: template
+type: rest
 
 # more complex skillets may express a dependency on another skillet that should be loaded before this one.
 # For example, a set of skillets may build off of a single 'golden config' that contains shared configuration
