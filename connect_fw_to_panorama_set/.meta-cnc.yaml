@@ -1,0 +1,35 @@
+name: connect_fw_to_panorama_set
+# label used for menu selection
+label: Configure firewall connect to Panorama using set commands
+
+description: |
+  This allows a firewall to add in a Panorama ip address and enable templates and device-groups
+
+type: template
+
+# more complex skillets may express a dependency on another skillet that should be loaded before this one.
+# For example, a set of skillets may build off of a single 'golden config' that contains shared configuration
+# As this skillet is very simple, there is no need to build on another one.
+extends:
+
+# Labels allow grouping and type specific options and are generally only used in advanced cases
+labels:
+  collection:
+    - Configure
+    - PANOS
+
+# variables define the things an operator may customize in this skillet. Things like DNS servers, NTP addresses, etc
+# may be customized for each deployment. Each variable will be rendered as a form field in the panhandler application
+variables:
+  - name: panorama_ip
+    description: Panorama ip address
+    default: 192.0.6.1
+    type_hint: ip_addr
+
+# Snippets is an ordered list of configuration xml fragments that will be pushed to the PAN-OS NGFW. The xpath
+# determines where in the configuration hierarchy the xml fragment will be set. 'file' indicates the name of the file
+# to load and parse. Jinja2 style variables will be variable interpolated using the values of the 'variables' defined
+# in the 'variables' section.
+snippets:
+  - name: connect_to_panorama.conf
+    file: connect_to_panorama.conf
