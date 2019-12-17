@@ -28,7 +28,7 @@ object model.
 
 ## brute force exceptions
 
-Both a set and xml/api model to add a set of brute force exceptions to a
+Set commands to add a set of brute force exceptions to a
 named vulnerability security profile.
 
 `NOTE:` the IDs used in this configuration are based on a list from a
