@@ -38,8 +38,7 @@ in the local signature database.
 
 https://knowledgebase.paloaltonetworks.com/KCSArticleDetail?id=kA10g000000ClmpCAC
 
-The set commands are applied using the CLI while the xml version is designed
-for active use of the firewalll API
+The set commands are applied using the CLI followed by a commit.
 
 ## connect the firewall to panorama set, xml+rest
 
