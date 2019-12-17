@@ -33,10 +33,6 @@ variables:
     description: Password
     default: admin
     type_hint: password
-  - name: panorama_ip
-    description: Panorama ip address
-    default: 192.0.6.1
-    type_hint: ip_addr
 
 # Snippets is an ordered list of configuration xml fragments that will be pushed to the PAN-OS NGFW. The xpath
 # determines where in the configuration hierarchy the xml fragment will be set. 'file' indicates the name of the file
