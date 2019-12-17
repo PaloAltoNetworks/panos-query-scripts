@@ -46,8 +46,8 @@ snippets:
       - name: api_key
         capture_pattern: result/key
   - name: enable_template
-    path: https://{{ TARGET_IP }}/api/?type=op&command=<set><system><setting><template>enable</template></setting></system></set>&key={{ api_key }}
+    path: https://{{ TARGET_IP }}/api/?type=op&cmd=<set><system><setting><template>enable</template></setting></system></set>&key={{ api_key }}
     output_type: xml
   - name: enable_device_group
-    path: https://{{ TARGET_IP }}/api/?type=op&command=<set><system><setting><shared-policy>enable</shared-policy></setting></system></set>&key={{ api_key }}
+    path: https://{{ TARGET_IP }}/api/?type=op&cmd=<set><system><setting><shared-policy>enable</shared-policy></setting></system></set>&key={{ api_key }}
     output_type: xml
