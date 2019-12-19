@@ -50,14 +50,14 @@ variables:
 
 
 snippets:
-  - name: key_gen
-    path: https://{{ TARGET_IP }}/api/?type=keygen&user={{ TARGET_USERNAME }}&password={{ TARGET_PASSWORD }}
-    output_type: xml
-    outputs:
-      - name: api_key
-        capture_pattern: result/key
+#  - name: key_gen
+#    path: https://{{ TARGET_IP }}/api/?type=keygen&user={{ TARGET_USERNAME }}&password={{ TARGET_PASSWORD }}
+#    output_type: xml
+#    outputs:
+#      - name: api_key
+#        capture_pattern: result/key
   - name: move_rule
-    path: https://{{ TARGET_IP }}/api/?type=config&action=move&xpath=/config/devices/entry/vsys/entry[@name='vsys1']/rulebase/security/rules/entry[@name='scott-in']&where=top&key={{ api_key }}
+    path: https://192.168.55.162/api/?type=config&action=move&xpath=/config/devices/entry/vsys/entry[@name='vsys1']/rulebase/security/rules/entry[@name='scott-in']&where=top&key=LUFRPT1EME1MUmZpditVTFdBbGxLbnc3Uk5Tdm5IbUE9eTBXWHdrY0tKMWFVL0VsZUs2Z1FtYlBuOXoxVm1KT0lyV1VnaFlVK25yeFU2TzNLQ05QNXFHM2xrZHZITkpSVA==
     output_type: xml
     #outputs:
     #  - name: profileName
