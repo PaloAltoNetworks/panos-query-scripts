@@ -71,7 +71,7 @@ variables:
 
 # There is a variable called snippets that we can use to auto-generate this section for us
 snippets:
-  - name: external-list
+  - name: external_list
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/external-list
     element: |-
         <entry name="{{ edl_name }}">
