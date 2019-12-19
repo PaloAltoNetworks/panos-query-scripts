@@ -1,0 +1,175 @@
+# skillet preamble information used by panhandler
+# ---------------------------------------------------------------------
+# unique snippet name
+name: mySkillet
+# label used for menu selection
+label: my_skillet_label
+description: this is what my skillet does
+
+# type of device configuration
+# common types are panorama, panos, and template
+# https://github.com/PaloAltoNetworks/panhandler/blob/develop/docs/metadata_configuration.rst
+type: panos
+# preload static or default-based templates
+extends:
+
+# grouping of like snippets for dynamic menu creation in panhandler
+labels:
+  collection:
+    - myCollection
+
+# ---------------------------------------------------------------------
+# end of preamble section
+
+# variables section
+# ---------------------------------------------------------------------
+# variables used in the configuration templates
+# type_hint defines the form field used by panhandler
+# type_hints can be text, ip_address, or dropdown
+variables:
+  - name: edl_name
+    description: name of the external list
+    default: my_edl
+    type_hint: text
+  - name: edl_desc
+    description: name of the external list
+    default: this is an ip block list
+    type_hint: text
+  - name: edl_url
+    description: external list url
+    default: http://someurl.com
+    type_hint: text
+  - name: tag_name
+    description: tag name
+    default: tag name
+    type_hint: text
+  - name: tag_desc
+    description: tag description
+    default: tag description
+    type_hint: text
+  - name: tag_color
+    description: tag color
+    default: red
+    type_hint: dropdown
+    dd_list:
+      - key: blue
+        value: color3
+      - key: green
+        value: color2
+      - key: orange
+        value: color6
+      - key: red
+        value: color1
+
+# ---------------------------------------------------------------------
+# end of variables section
+
+# snippets section
+# ---------------------------------------------------------------------
+# snippets used for api configuration including xpath and element as file name
+# files will load in the order listed
+
+# There is a variable called snippets that we can use to auto-generate this section for us
+snippets:
+
+  - name: external-list
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/external-list
+    element: |-
+        <entry name="{{ edl_name }}">
+            <type>
+              <ip>
+                <recurring>
+                  <five-minute />
+                </recurring>
+                <description>{{ edl_desc }}</description>
+                <url>{{ edl_url }}</url>
+              </ip>
+            </type>
+          </entry>
+
+  - name: tag
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/tag
+    element: |-
+        <entry name="{{ tag_name }}">
+            <color>{{ tag_color }}</color>
+            <comments>{{ tag_desc }}</comments>
+        </entry>
+
+  - name: security_rule_out
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
+    element: |-
+        <entry name="{{ edl_name }}-out">
+          <to>
+            <member>any</member>
+          </to>
+          <from>
+            <member>any</member>
+          </from>
+          <source>
+            <member>any</member>
+          </source>
+          <destination>
+            <member>{{ edl_name }}</member>
+          </destination>
+          <source-user>
+            <member>any</member>
+          </source-user>
+          <category>
+            <member>any</member>
+          </category>
+          <application>
+            <member>any</member>
+          </application>
+          <service>
+            <member>application-default</member>
+          </service>
+          <hip-profiles>
+            <member>any</member>
+          </hip-profiles>
+          <tag>
+            <member>{{ edl_tag }}</member>
+          </tag>
+          <action>deny</action>
+          <description>outbound EDL IP block rule. EDL info: this is an ip block list for {{ edl_name }}</description>
+        </entry>
+
+  - name: security_rule_in
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
+    element: |-
+        <entry name="{{ edl_name }}-in">
+            <to>
+              <member>any</member>
+            </to>
+            <from>
+              <member>any</member>
+            </from>
+            <source>
+              <member>{{ edl_name }}</member>
+            </source>
+            <destination>
+              <member>any</member>
+            </destination>
+            <source-user>
+              <member>any</member>
+            </source-user>
+            <category>
+              <member>any</member>
+            </category>
+            <application>
+              <member>any</member>
+            </application>
+            <service>
+              <member>application-default</member>
+            </service>
+            <hip-profiles>
+              <member>any</member>
+            </hip-profiles>
+            <tag>
+              <member>{{ tag_name }}</member>
+            </tag>
+            <action>deny</action>
+            <description>inbound EDL IP block rule. EDL info: this is an ip block list for {{ edl_name }}</description>
+        </entry>
+
+# ---------------------------------------------------------------------
+# end of snippets section
