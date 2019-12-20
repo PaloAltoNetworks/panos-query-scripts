@@ -1,9 +1,9 @@
 # skillet preamble information used by panhandler
 # ---------------------------------------------------------------------
 # unique snippet name
-name: test_inline_elements
+name: test_inline_elements_no_var
 # label used for menu selection
-label: test use of inline xml elements
+label: test use of inline xml elements no var
 description: instead of external xml file use xml elements as part of the metadata file
 
 # type of device configuration
@@ -74,14 +74,14 @@ snippets:
   - name: external_list
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/external-list
     element: |-
-        <entry name="{{ edl_name }}">
+        <entry name="scotty">
             <type>
               <ip>
                 <recurring>
                   <five-minute />
                 </recurring>
-                <description>{{ edl_desc }}</description>
-                <url>{{ edl_url }}</url>
+                <description>scotty edl</description>
+                <url>http://scotty.com</url>
               </ip>
             </type>
           </entry>
@@ -89,15 +89,15 @@ snippets:
   - name: tag
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/tag
     element: |-
-        <entry name="{{ tag_name }}">
-            <color>{{ tag_color }}</color>
-            <comments>{{ tag_desc }}</comments>
+        <entry name="scotty">
+            <color>color6</color>
+            <comments>scotty tag</comments>
         </entry>
 
   - name: security_rules
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
-        <entry name="{{ edl_name }}-out">
+        <entry name="scotty-out">
           <to>
             <member>any</member>
           </to>
@@ -108,7 +108,7 @@ snippets:
             <member>any</member>
           </source>
           <destination>
-            <member>{{ edl_name }}</member>
+            <member>scotty</member>
           </destination>
           <source-user>
             <member>any</member>
@@ -126,12 +126,12 @@ snippets:
             <member>any</member>
           </hip-profiles>
           <tag>
-            <member>{{ tag_name }}</member>
+            <member>scotty</member>
           </tag>
           <action>deny</action>
-          <description>outbound EDL IP block rule. EDL info: this is an ip block list for {{ edl_name }}</description>
+          <description>outbound EDL IP block rule. EDL info: this is an ip block list for scotty</description>
         </entry>
-        <entry name="{{ edl_name }}-in">
+        <entry name="scotty-in">
             <to>
               <member>any</member>
             </to>
@@ -139,7 +139,7 @@ snippets:
               <member>any</member>
             </from>
             <source>
-              <member>{{ edl_name }}</member>
+              <member>scotty</member>
             </source>
             <destination>
               <member>any</member>
@@ -160,10 +160,10 @@ snippets:
               <member>any</member>
             </hip-profiles>
             <tag>
-              <member>{{ tag_name }}</member>
+              <member>scotty</member>
             </tag>
             <action>deny</action>
-            <description>inbound EDL IP block rule. EDL info: this is an ip block list for {{ edl_name }}</description>
+            <description>inbound EDL IP block rule. EDL info: this is an ip block list for scotty</description>
         </entry>
 
 # ---------------------------------------------------------------------
