@@ -71,100 +71,110 @@ variables:
 
 # There is a variable called snippets that we can use to auto-generate this section for us
 snippets:
-  - name: external_list
+
+  - name: entry-518233
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/external-list
     element: |-
-        <entry name="scotty">
-            <type>
-              <ip>
-                <recurring>
-                  <five-minute />
-                </recurring>
-                <description>scotty edl</description>
-                <url>http://scotty.com</url>
-              </ip>
-            </type>
-          </entry>
+        <entry name="scott2">
+              <type>
+                <ip>
+                  <recurring>
+                    <five-minute />
+                  </recurring>
+                  <description>this is an ip block list for scott2</description>
+                  <url>http://scott2.com</url>
+                </ip>
+              </type>
+            </entry>
 
-  - name: tag
+  - name: entry-995436
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/tag
     element: |-
-        <entry name="scotty">
-            <color>color6</color>
-            <comments>scotty tag</comments>
-        </entry>
+        <entry name="scott2">
+              <color>color6</color>
+              <comments>scott2 tag</comments>
+            </entry>
 
-  - name: security_rules
+  - name: entry-263214
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
-        <entry name="scotty-out">
-          <to>
-            <member>any</member>
-          </to>
-          <from>
-            <member>any</member>
-          </from>
-          <source>
-            <member>any</member>
-          </source>
-          <destination>
-            <member>scotty</member>
-          </destination>
-          <source-user>
-            <member>any</member>
-          </source-user>
-          <category>
-            <member>any</member>
-          </category>
-          <application>
-            <member>any</member>
-          </application>
-          <service>
-            <member>application-default</member>
-          </service>
-          <hip-profiles>
-            <member>any</member>
-          </hip-profiles>
-          <tag>
-            <member>scotty</member>
-          </tag>
-          <action>deny</action>
-          <description>outbound EDL IP block rule. EDL info: this is an ip block list for scotty</description>
-        </entry>
-        <entry name="scotty-in">
-            <to>
-              <member>any</member>
-            </to>
-            <from>
-              <member>any</member>
-            </from>
-            <source>
-              <member>scotty</member>
-            </source>
-            <destination>
-              <member>any</member>
-            </destination>
-            <source-user>
-              <member>any</member>
-            </source-user>
-            <category>
-              <member>any</member>
-            </category>
-            <application>
-              <member>any</member>
-            </application>
-            <service>
-              <member>application-default</member>
-            </service>
-            <hip-profiles>
-              <member>any</member>
-            </hip-profiles>
-            <tag>
-              <member>scotty</member>
-            </tag>
-            <action>deny</action>
-            <description>inbound EDL IP block rule. EDL info: this is an ip block list for scotty</description>
-        </entry>
+        <entry name="scott2-out">
+                  <to>
+                    <member>any</member>
+                  </to>
+                  <from>
+                    <member>any</member>
+                  </from>
+                  <source>
+                    <member>any</member>
+                  </source>
+                  <destination>
+                    <member>scott2</member>
+                  </destination>
+                  <source-user>
+                    <member>any</member>
+                  </source-user>
+                  <category>
+                    <member>any</member>
+                  </category>
+                  <application>
+                    <member>any</member>
+                  </application>
+                  <service>
+                    <member>application-default</member>
+                  </service>
+                  <hip-profiles>
+                    <member>any</member>
+                  </hip-profiles>
+                  <tag>
+                    <member>scott2</member>
+                  </tag>
+                  <action>deny</action>
+                  <description>outbound EDL IP block rule. EDL info: this is an ip block list for scott2</description>
+                </entry>
+
+  - name: entry-656805
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
+    element: |-
+        <entry name="scott2-in">
+                  <to>
+                    <member>any</member>
+                  </to>
+                  <from>
+                    <member>any</member>
+                  </from>
+                  <source>
+                    <member>scott2</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <source-user>
+                    <member>any</member>
+                  </source-user>
+                  <category>
+                    <member>any</member>
+                  </category>
+                  <application>
+                    <member>any</member>
+                  </application>
+                  <service>
+                    <member>application-default</member>
+                  </service>
+                  <hip-profiles>
+                    <member>any</member>
+                  </hip-profiles>
+                  <tag>
+                    <member>scott2</member>
+                  </tag>
+                  <action>deny</action>
+                  <description>inbound EDL IP block rule. EDL info: this is an ip block list for scott2</description>
+                </entry>
+
+
+
+
+
 
 # ---------------------------------------------------------------------
 # end of snippets section
