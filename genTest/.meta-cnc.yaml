@@ -1,10 +1,10 @@
 # skillet preamble information used by panhandler
 # ---------------------------------------------------------------------
 # unique snippet name
-name: mySkillet
+name: test_inline_elements
 # label used for menu selection
-label: my_skillet_label
-description: this is what my skillet does
+label: test use of inline xml elements
+description: instead of external xml file use xml elements as part of the metadata file
 
 # type of device configuration
 # common types are panorama, panos, and template
