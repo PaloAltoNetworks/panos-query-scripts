@@ -94,7 +94,7 @@ snippets:
             <comments>{{ tag_desc }}</comments>
         </entry>
 
-  - name: security_rule_out
+  - name: security_rules
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
         <entry name="{{ edl_name }}-out">
