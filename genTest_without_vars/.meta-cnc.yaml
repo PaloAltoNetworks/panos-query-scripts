@@ -1,10 +1,10 @@
 # skillet preamble information used by panhandler
 # ---------------------------------------------------------------------
 # unique snippet name
-name: test_inline_elements_no_var
+name: inlinexml_test
 # label used for menu selection
-label: test use of inline xml elements no var
-description: instead of external xml file use xml elements as part of the metadata file
+label: test inline xml element
+description: this is what my skillet does
 
 # type of device configuration
 # common types are panorama, panos, and template
@@ -27,40 +27,19 @@ labels:
 # type_hint defines the form field used by panhandler
 # type_hints can be text, ip_address, or dropdown
 variables:
-  - name: edl_name
-    description: name of the external list
-    default: my_edl
+  - name: hostname
+    description: Firewall hostname
+    default: myFirewall
     type_hint: text
-  - name: edl_desc
-    description: name of the external list
-    default: this is an ip block list
-    type_hint: text
-  - name: edl_url
-    description: external list url
-    default: http://someurl.com
-    type_hint: text
-  - name: tag_name
-    description: tag name
-    default: tag name
-    type_hint: text
-  - name: tag_desc
-    description: tag description
-    default: tag description
-    type_hint: text
-  - name: tag_color
-    description: tag color
-    default: red
+  - name: choices
+    description: sample dropdown list
+    default: choices
     type_hint: dropdown
     dd_list:
-      - key: blue
-        value: color3
-      - key: green
-        value: color2
-      - key: orange
-        value: color6
-      - key: red
-        value: color1
-
+      - key: option1
+        value: option1
+      - key: option2
+        value: option2
 # ---------------------------------------------------------------------
 # end of variables section
 
@@ -72,33 +51,10 @@ variables:
 # There is a variable called snippets that we can use to auto-generate this section for us
 snippets:
 
-  - name: entry-518233
-    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/external-list
-    element: |-
-        <entry name="scott2">
-              <type>
-                <ip>
-                  <recurring>
-                    <five-minute />
-                  </recurring>
-                  <description>this is an ip block list for scott2</description>
-                  <url>http://scott2.com</url>
-                </ip>
-              </type>
-            </entry>
-
-  - name: entry-995436
-    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/tag
-    element: |-
-        <entry name="scott2">
-              <color>color6</color>
-              <comments>scott2 tag</comments>
-            </entry>
-
-  - name: entry-263214
+  - name: entry-59636
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
-        <entry name="scott2-out">
+        <entry name="scott2-out" uuid="7acfda74-2214-4718-9097-25d19acc2906">
                   <to>
                     <member>any</member>
                   </to>
@@ -133,10 +89,10 @@ snippets:
                   <description>outbound EDL IP block rule. EDL info: this is an ip block list for scott2</description>
                 </entry>
 
-  - name: entry-656805
+  - name: entry-313115
     xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/rulebase/security/rules
     element: |-
-        <entry name="scott2-in">
+        <entry name="scott2-in" uuid="5238f333-9f2d-4b2b-9228-353eb22fee07">
                   <to>
                     <member>any</member>
                   </to>
@@ -171,9 +127,28 @@ snippets:
                   <description>inbound EDL IP block rule. EDL info: this is an ip block list for scott2</description>
                 </entry>
 
+  - name: entry-300577
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/tag
+    element: |-
+        <entry name="scott2">
+              <color>color6</color>
+              <comments>scott2 tag</comments>
+            </entry>
 
-
-
+  - name: entry-177444
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/external-list
+    element: |-
+        <entry name="scott2">
+              <type>
+                <ip>
+                  <recurring>
+                    <five-minute />
+                  </recurring>
+                  <description>this is an ip block list for scott2</description>
+                  <url>http://scott2.com</url>
+                </ip>
+              </type>
+            </entry>
 
 
 # ---------------------------------------------------------------------
