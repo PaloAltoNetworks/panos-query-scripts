@@ -10,7 +10,7 @@ type: python3
 
 labels:
     collection:
-      - lib
+      - PANOS
 
 variables:
   - name: TARGET_IP
