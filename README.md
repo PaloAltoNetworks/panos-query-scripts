@@ -10,21 +10,16 @@ Uses the rest API model to move a rule to top, bottom, before or after.
 Jinja logic in the skillet so that a second rule name is used for the
 before and after options.
 
-## load baseline liab config
+## load baseline config
 
 This is a simple reset configuration that uses the firewall API to
 import and load the xml configuration as a candidate config.
-
-Using python, also shows state capture information such as job ID status.
 
 ## content update
 
 This uses the API to update the firewall to the latest content and threat
 versions. Useful for new firewall installs or skillets that may require
 the latest content update.
-
-Another python skillet using firewall state information and the pan-python
-object model.
 
 ## brute force exceptions
 
