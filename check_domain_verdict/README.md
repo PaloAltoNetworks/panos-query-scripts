@@ -1,3 +1,3 @@
-# URL Category Check
+# Domain Category Check
 
-use NGFW API to check a set or URLs and return their category
+use NGFW API to check a set of domains/FQDNs and return their category
