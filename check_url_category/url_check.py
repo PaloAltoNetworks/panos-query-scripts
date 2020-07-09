@@ -51,6 +51,7 @@ def cli(target_ip, target_port, target_username, target_password, url):
                    hostname=target_ip,
                    api_port=target_port
                    )
+
     print('URL, local category, local risk, cloud category, cloud risk')
     for item in url_list:
         # query the device object to get the url category
@@ -69,5 +70,7 @@ def cli(target_ip, target_port, target_username, target_password, url):
             print(f'{item}, {categoryLocal}, {riskLocal}, {categoryCloud}, {riskCloud}')
 
     print('\nURL checks complete')
+
+
 if __name__ == '__main__':
     cli()
