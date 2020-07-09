@@ -52,7 +52,9 @@ def cli(target_ip, target_port, target_username, target_password, url):
                    api_port=target_port
                    )
 
-    print('URL, local category, local risk, cloud category, cloud risk')
+    print('URL, cloud category, cloud risk, local category, local risk')
+    print('-----------------------------------------------------------\n')
+
     for item in url_list:
         # query the device object to get the url category
         cli_cmd = f'<test><url>{item}</url></test>'
@@ -65,9 +67,9 @@ def cli(target_ip, target_port, target_username, target_password, url):
         categoryCloud, riskCloud = cloud.split(" ")[1], cloud.split(" ")[2]
         if categoryLocal == 'not-resolved':
             # no risk value return so skip the value
-            print(f'{item}, {categoryLocal}, unknown, {categoryCloud}, {riskCloud}')
+            print(f'{item}, {categoryCloud}, {riskCloud}, {categoryLocal}, unknown')
         else:
-            print(f'{item}, {categoryLocal}, {riskLocal}, {categoryCloud}, {riskCloud}')
+            print(f'{item}, {categoryCloud}, {riskCloud}, {categoryLocal}, {riskLocal}, ')
 
     print('\nURL checks complete')
 
