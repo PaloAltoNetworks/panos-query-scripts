@@ -30,7 +30,7 @@ def cli(target_ip, target_port, target_username, target_password, url):
     """
     process a list of URLs and get ping results
     """
-
+    # read in the text file and parse to get urls
     if url == 'use text file':
         url_list = []
         with open('url_list.txt') as f:
@@ -38,10 +38,13 @@ def cli(target_ip, target_port, target_username, target_password, url):
             for line in f.readlines():
                 url_list.append(line.rstrip())
     else:
+        # use the -url option and a comma separated list of urls
+        # useful to spot test a url without reading the file
         url_list = url.split(',')
         print('\n')
 
 
+    # creates a firewall object based on skilletlib and pan-python
     print('getting firewall API key\n')
     device = Panos(api_username=target_username,
                    api_password=target_password,
@@ -51,15 +54,16 @@ def cli(target_ip, target_port, target_username, target_password, url):
     print('URL, local category, local risk, cloud category, cloud risk')
     for item in url_list:
         # query the device object to get the url category
-        #cli_cmd = f'test url {item}'
         cli_cmd = f'<test><url>{item}</url></test>'
         response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False).split('\n')
+        # split the response into local and cloud
         local = response[0]
         cloud = response[1]
-        #print(response)
+        # grab the category and risk values
         categoryLocal, riskLocal = local.split(" ")[1], local.split(" ")[2]
         categoryCloud, riskCloud = cloud.split(" ")[1], cloud.split(" ")[2]
         if categoryLocal == 'not-resolved':
+            # no risk value return so skip the value
             print(f'{item}, {categoryLocal}, unknown, {categoryCloud}, {riskCloud}')
         else:
             print(f'{item}, {categoryLocal}, {riskLocal}, {categoryCloud}, {riskCloud}')
