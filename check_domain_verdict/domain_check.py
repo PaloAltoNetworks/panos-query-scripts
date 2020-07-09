@@ -16,6 +16,8 @@
 # Authors: Scott Shoaf
 
 import click
+import json
+
 from skilletlib import Panos
 
 @click.command()
@@ -23,24 +25,24 @@ from skilletlib import Panos
 @click.option("-r", "--TARGET_PORT", help="Port to communicate to device (443)", type=int, default=443)
 @click.option("-u", "--TARGET_USERNAME", help="Firewall Username (admin)", type=str, default="admin")
 @click.option("-p", "--TARGET_PASSWORD", help="Firewall Password (admin)", type=str, default="admin")
-@click.option("-url", "--url", help="url list to query", type=str,
+@click.option("-domain", "--domain", help="domain list to query", type=str,
               default="use text file")
 
-def cli(target_ip, target_port, target_username, target_password, url):
+def cli(target_ip, target_port, target_username, target_password, domain):
     """
-    process a list of URLs and get category results
+    process a list of domains and get verdict results
     """
-    # read in the text file and parse to get urls
-    if url == 'use text file':
-        url_list = []
-        with open('url_list.txt') as f:
+    # read in the text file and parse to get domains
+    if domain == 'use text file':
+        domain_list = []
+        with open('domain_list.txt') as f:
             print('\nusing text file input\n')
             for line in f.readlines():
-                url_list.append(line.rstrip())
+                domain_list.append(line.rstrip())
     else:
-        # use the -url option and a comma separated list of urls
-        # useful to spot test a url without reading the file
-        url_list = url.split(',')
+        # use the -domain option and a comma separated list of domains
+        # useful to spot test a domain without reading the file
+        domain_list = domain.split(',')
         print('\n')
 
 
@@ -52,26 +54,24 @@ def cli(target_ip, target_port, target_username, target_password, url):
                    api_port=target_port
                    )
 
-    print('URL, cloud category, cloud risk, local category, local risk')
-    print('-----------------------------------------------------------\n')
+    print('Domain, category')
+    print('----------------\n')
 
-    for item in url_list:
-        # query the device object to get the url category
-        cli_cmd = f'<test><url>{item}</url></test>'
-        response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False).split('\n')
-        # split the response into local and cloud
-        local = response[0]
-        cloud = response[1]
-        # grab the category and risk values
-        categoryLocal, riskLocal = local.split(" ")[1], local.split(" ")[2]
-        categoryCloud, riskCloud = cloud.split(" ")[1], cloud.split(" ")[2]
-        if categoryLocal == 'not-resolved':
-            # no risk value return so skip the value
-            print(f'{item}, {categoryCloud}, {riskCloud}, {categoryLocal}, unknown')
-        else:
-            print(f'{item}, {categoryCloud}, {riskCloud}, {categoryLocal}, {riskLocal}, ')
+    # responses give a category code value
+    # TODO: get the complete list
+    category_list = ['benign', 'malware', 'command-and-control']
 
-    print('\nURL checks complete')
+
+    for item in domain_list:
+        # query the device object to get the domain category
+        cli_cmd = f'<test><dns-proxy><dns-signature><fqdn>{item}</fqdn></dns-signature></dns-proxy></test>'
+        response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False)
+        dns_data = json.loads(response)
+        category_num = dns_data['dns-signature'][0]['category']
+        dns_category = category_list[category_num]
+        print(f'{item}, {dns_category}')
+
+    print('\nDomain checks complete')
 
 
 if __name__ == '__main__':
