@@ -20,7 +20,7 @@ PyYAML==5.3.1
 requests==2.24.0
 requests-toolbelt==0.9.1
 six==1.15.0
-skilletlib==0.1.6.8
+skilletlib==0.3.9.7
 smmap==3.0.4
 urllib3==1.25.9
 websocket-client==0.57.0

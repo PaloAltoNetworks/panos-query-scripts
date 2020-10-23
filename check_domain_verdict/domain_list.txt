@@ -1,13 +1,3 @@
-test-c2.testpanw.com
-test-dnstun.testpanw.com
-test-dga.testpanw.com
-test-ddns.testpanw.com
-test-malware.testpanw.com
-test-nrd.testpanw.com
-test-phishing.testpanw.com
-test-grayware.testpanw.com
-test-parked.testpanw.com
-test-proxy.testpanw.com
 0x21.in
 1.lastnight.z8.ru
 10services.homedns.org

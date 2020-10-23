@@ -2,5 +2,5 @@
 env/
 venv/
 
-# dynamic output csv file
-domains_and_categories.csv
+# local test list
+domain_list

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018, Palo Alto Networks
+# Copyright (c) 2020, Palo Alto Networks
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -15,7 +15,6 @@
 
 # Authors: Scott Shoaf
 
-import csv
 import json
 
 import click
@@ -54,26 +53,14 @@ def cli(target_ip, target_port, target_username, target_password, domain):
                    api_port=target_port
                    )
 
-    # create output file
-    with open('domains_and_categories.csv', 'w') as f:
-        writer = csv.DictWriter(
-            f, fieldnames=['domain',
-                           'category']
-        )
-        writer.writeheader()
-
     print('Domain, category')
     print('----------------\n')
 
     # responses give a category code value
-    category_list = ['benign', 'malware', 'command-and-control', 'phishing', 'dynamic-dns', 'newly-registered-domain',
-                     'grayware', 'parked', 'proxy-avoidance-anonymizers', 'tbd9', 'tbd10']
+    # TODO: get the complete list
+    category_list = ['benign', 'malware', 'command-and-control']
 
     for item in domain_list:
-
-        # define output as list for csv writer
-        output = []
-
         # query the device object to get the domain category
         # print(item)
         cli_cmd = f'<test><dns-proxy><dns-signature><fqdn>{item}</fqdn></dns-signature></dns-proxy></test>'
@@ -81,20 +68,12 @@ def cli(target_ip, target_port, target_username, target_password, domain):
             response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False)
         except:
             print('oops')
+            exit()
         # print(response)
         dns_data = json.loads(response)
         category_num = dns_data['dns-signature'][0]['category']
         dns_category = category_list[category_num]
         print(f'{item}, {dns_category}')
-
-        # create output category file
-        output.append(item)
-        output.append(dns_category)
-
-        with open('domains_and_categories.csv', 'a') as f:
-            writer = csv.writer(f)
-            # print(output)
-            writer.writerow(output)
 
     print('\nDomain checks complete')
 
