@@ -1,3 +1,4 @@
-# panos-query-scripts
+# PAN-OS Query Scripts
 
-suite of basic interactive panos scripts to pull data from the firewall
+set of basic utilities to pull info from the NGFW or use the NGFW to get
+cloud-based information such as url categories or dns domain verdicts.

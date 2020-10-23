@@ -1,3 +1,6 @@
 # python venv
 env/
 venv/
+
+# local test list
+url_list.txt

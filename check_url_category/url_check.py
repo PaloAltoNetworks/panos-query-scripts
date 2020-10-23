@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018, Palo Alto Networks
+# Copyright (c) 2020, Palo Alto Networks
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -18,6 +18,7 @@
 import click
 from skilletlib import Panos
 
+
 @click.command()
 @click.option("-ip", "--TARGET_IP", help="IP address of the device (localhost)", type=str, default="localhost")
 @click.option("-r", "--TARGET_PORT", help="Port to communicate to device (443)", type=int, default=443)
@@ -25,7 +26,6 @@ from skilletlib import Panos
 @click.option("-p", "--TARGET_PASSWORD", help="Firewall Password (admin)", type=str, default="admin")
 @click.option("-url", "--url", help="url list to query", type=str,
               default="use text file")
-
 def cli(target_ip, target_port, target_username, target_password, url):
     """
     process a list of URLs and get category results
@@ -42,7 +42,6 @@ def cli(target_ip, target_port, target_username, target_password, url):
         # useful to spot test a url without reading the file
         url_list = url.split(',')
         print('\n')
-
 
     # creates a firewall object based on skilletlib and pan-python
     print('getting firewall API key\n')
