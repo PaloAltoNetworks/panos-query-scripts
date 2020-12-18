@@ -1,5 +1,5 @@
 Querying the firewall {{ TARGET_IP }}'s rulebase for rules with:
-Source Zone is 'any' or {{ untrust_zone }}. 
+Source Zone is 'any' or {{ untrust_zone_var }}. 
 
 Policies Found:
 {% for entry in full_output_as_object %}
