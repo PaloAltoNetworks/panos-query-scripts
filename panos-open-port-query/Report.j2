@@ -1,12 +1,14 @@
-This is my report. 
-
+Querying the firewall {{ TARGET_IP }}'s rulebase for rules with:
+Source Zone is 'any' or {{ untrust_zone }}. 
 
 Policies Found:
-
 {% for entry in full_output_as_object %}
 Rulebase entry is: 
-{{ entry }}
+Name = {{ entry.entry."@name" }}
+Application = {{ entry.entry.application }}
+Service = {{ entry.entry.service }}
+
 {% endfor %}
 
 Here is the full output:
-{{ full_output_as_object }}
+{{ full_output_as_object | to_json }}
