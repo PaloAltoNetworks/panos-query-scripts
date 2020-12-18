@@ -7,8 +7,8 @@ Policies Found:
 
 {% for entry in full_output_as_object %}
 Rule Name = {{ entry.entry["@name"] }}
-Application = entry.entry.application
-Service = entry.entry.service
+Application = {{ entry.entry.application }}
+Service = {{ entry.entry.service }}
 {% endfor %}
 
 Here is the full output:
