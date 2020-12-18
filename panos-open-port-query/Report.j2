@@ -7,14 +7,8 @@ Policies Found:
 
 {% for entry in full_output_as_object %}
 Rule Name = {{ entry.entry["@name"] }}
-Application =
-{% for app in entry.entry.application %}
-{{ app }}
-{% endfor %}
-Service = 
-{% for serv in entry.entry.service %}
-{{ serv }}
-{% endfor %}
+Application = entry.entry.application
+Service = entry.entry.service
 {% endfor %}
 
 Here is the full output:
