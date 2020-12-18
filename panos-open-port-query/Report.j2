@@ -1,13 +1,20 @@
 Querying the firewall {{ TARGET_IP }}'s rulebase for rules with:
-Source Zone is 'any' or {{ untrust_zone_var }}. 
+Source Zone is 'any' or '{{ untrust_zone_var }}'. 
+Policy Action set to 'allow'
+
 
 Policies Found:
-{% for entry in full_output_as_object %}
-Rulebase entry is: 
-Name = {{ entry.entry["@name"] }}
-Application = {{ entry.entry.application }}
-Service = {{ entry.entry.service }}
 
+{% for entry in full_output_as_object %}
+Rule Name = {{ entry.entry["@name"] }}
+Application =
+    {% for app in entry.entry.application %}
+    {{ app.member }}
+    {% endfor %}
+Service = 
+    {% for serv in entry.entry.service %}
+    {{ serv.member }}
+    {% endfor %}
 {% endfor %}
 
 Here is the full output:
