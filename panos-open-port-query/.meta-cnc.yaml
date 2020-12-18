@@ -22,3 +22,5 @@ snippets:
         capture_list: ./entry
         filter_items: (item | element_value("entry.from.member") in ["any", "{{ untrust_zone
             }}"]) and (item | element_value("entry.action") == "allow")
+    -   name: untrust_zone_var
+        capture_variable: untrust_zone
