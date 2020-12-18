@@ -4,7 +4,7 @@ Source Zone is 'any' or {{ untrust_zone }}.
 Policies Found:
 {% for entry in full_output_as_object %}
 Rulebase entry is: 
-Name = {{ entry.entry."@name" }}
+Name = {{ entry.entry.[@]name }}
 Application = {{ entry.entry.application }}
 Service = {{ entry.entry.service }}
 
