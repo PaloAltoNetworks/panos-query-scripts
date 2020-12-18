@@ -5,10 +5,16 @@ Policy Action set to 'allow'
 
 Policies Found:
 
-{% for entry in full_output_as_object %}
-Rule Name = {{ entry.entry["@name"] }}
-Application = {{ entry.entry.application }}
-Service = {{ entry.entry.service }}
+{% for rule  in full_output_as_object %}
+Rule Name = {{ rule.entry["@name"] }}
+Application = {{ rule.entry.application }}
+{% for appkey, appvalue in rule.entry.application %}
+{{ appvalue }}
+{% endfor %}
+Service = {{ rule.entry.service }}
+{% for servkey, servvalue in rule.entry.service %}
+{{ servvalue }}
+{% endfor %}
 {% endfor %}
 
 Here is the full output:
