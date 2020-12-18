@@ -9,11 +9,11 @@ Policies Found:
 Rule Name = {{ entry.entry["@name"] }}
 Application =
 {% for app in entry.entry.application %}
-{{ app.member }}
+{{ app }}
 {% endfor %}
 Service = 
 {% for serv in entry.entry.service %}
-{{ serv.member }}
+{{ serv }}
 {% endfor %}
 {% endfor %}
 
