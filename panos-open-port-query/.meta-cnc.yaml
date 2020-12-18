@@ -1,4 +1,4 @@
-name: Open_Ports
+name: panos-open_ports
 label: Query Firewall for Open Port Rules
 description: |
     For Tobi
