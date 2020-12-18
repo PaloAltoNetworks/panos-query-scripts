@@ -8,11 +8,11 @@ Policies Found:
 {% for rule  in full_output_as_object %}
 Rule Name = {{ rule.entry["@name"] }}
 Application = {{ rule.entry.application }}
-{% for appkey, appvalue in rule.entry.application %}
+{% for (appkey, appvalue) in rule.entry.application %}
 {{ appvalue }}
 {% endfor %}
 Service = {{ rule.entry.service }}
-{% for servkey, servvalue in rule.entry.service %}
+{% for (servkey, servvalue) in rule.entry.service %}
 {{ servvalue }}
 {% endfor %}
 {% endfor %}
