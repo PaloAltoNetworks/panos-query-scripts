@@ -1,15 +1,35 @@
-Querying the firewall's rulebase for rules with:
-Source Zone is 'any' or '{{ untrust_zone_var }}'. 
-Policy Action set to 'allow'
+<div>
+<h4 class="text-uppercase">Open Port Query Report</h4>
+<h5>Query Parameters</h5>
+<dl class="dl-horizontal">
+    <dt>Firewall IP</dt>
+    <dd>{{ TARGET_IP }}</dd>
+    <dt>Source Zone</dt>
+    <dd>'any' or '{{ untrust_zone_var }}'</dd>
+    <dt>Policy Action</dt>
+    <dd>'allow'</dd>
+</dl>
 
+<h5>Rulebase Matches Found</h5>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Rule Name</th>
+            <th>Application</th>
+            <th>Service</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rule  in full_output_as_object %}
+        <tr>
+            <td>{{ rule.entry["@name"] }}</td>
+            <td>{{ rule.entry.application }}</td>
+            <td>{{ rule.entry.service }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-Policies Found:
-
-{% for rule  in full_output_as_object %}
-Rule Name = {{ rule.entry["@name"] }}
-Application = {{ rule.entry.application }}
-Service = {{ rule.entry.service }}
-{% endfor %}
-
-Here is the full output:
+<h5>Full JSON Rulebase Output</h5>
 {{ full_output_as_object | to_json }}
+</div>
