@@ -13,12 +13,18 @@ variables:
     description: Find ports open to this untrusted zone
     default: internet
     source: zone_names
+  - name: TARGET_IP
+    description: NGFW IP or Hostname
+    default: 192.168.55.10
+    type_hint: hidden
 
 snippets:
 -   name: Get_Policies
     cmd: show
     xpath: /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name="vsys1"]/rulebase/security/rules
     outputs:
+    -   name: full_output
+        capture_list: ./entry
     -   name: full_output_as_object
         capture_list: ./entry
         filter_items: ( item |
@@ -31,3 +37,5 @@ snippets:
 #            }}"]) and (item | element_value("entry.action") == "allow")
     -   name: untrust_zone_var
         capture_variable: "{{ untrust_zone }}"
+    -   name: target_var
+        capture_variable: "{{ TARGET_IP }}"
