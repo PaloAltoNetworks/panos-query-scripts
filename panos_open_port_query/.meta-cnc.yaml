@@ -25,3 +25,5 @@ snippets:
             }}"]) and (item | element_value("entry.action") == "allow")
     -   name: untrust_zone_var
         capture_variable: "{{ untrust_zone }}"
+    -   name: target_var
+        capture_varibale: "{{ TARGET_IP }}"
