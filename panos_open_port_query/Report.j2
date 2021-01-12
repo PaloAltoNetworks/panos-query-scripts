@@ -1,5 +1,5 @@
-<h1 class="text-uppercase">Open Port Query Report</h1>
-<h3>Query Parameters</h3>
+<h4 class="text-uppercase">Open Port Query Report</h4>
+<h5>Query Parameters</h5>
 <dl class="dl-horizontal">
     <dt>Firewall IP</dt>
     <dd>{{ TARGET_IP }}</dd>
@@ -9,7 +9,7 @@
     <dd>'allow'</dd>
 </dl>
 
-<h3>Rulebase Matches Found</h3>
+<h5>Rulebase Matches Found</h5>
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -29,5 +29,5 @@
     </tbody>
 </table>
 
-Here is the full output:
-<pre>{{ full_output_as_object | to_json }}</pre>
+<h5>Full JSON Rulebase Output</h5>
+{{ full_output_as_object | to_json }}
