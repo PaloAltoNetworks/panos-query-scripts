@@ -1,15 +1,27 @@
 <div>
-<h4 class">Open Port Query Report</h4>
 <h5>Query Parameters</h5>
 <dl class="dl-horizontal">
     <dt>Firewall IP</dt>
-    <dd>{{ target_var }}</dd>
+    <dd>
+        ::before
+        {{ target_var }}
+        ::after
+    </dd>
     <dt>Source Zone</dt>
-    <dd>'any' or '{{ untrust_zone_var }}'</dd>
+    <dd>
+        ::before
+        'any' or '{{ untrust_zone_var }}'
+        ::after
+    </dd>
     <dt>Policy Action</dt>
-    <dd>'allow'</dd>
+    <dd>
+        ::before
+        'allow'
+        ::after
+    </dd>
 </dl>
-
+<br/>
+<br/>
 <h5>Rulebase Matches Found</h5>
 <table class="table table-bordered table-hover">
     <thead>
@@ -29,7 +41,8 @@
         {% endfor %}
     </tbody>
 </table>
-
+<br/>
+<br/>
 <h5>Full JSON Rulebase Output</h5>
 {{ full_output_as_object | to_json }}
 </div>
