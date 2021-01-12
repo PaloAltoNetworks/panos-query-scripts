@@ -13,7 +13,7 @@ variables:
     description: Find ports open to this untrusted zone
     default: internet
     source: zone_names
-  - name: TARGET_IP
+-   name: TARGET_IP
     description: NGFW IP or Hostname
     default: 192.168.55.10
     type_hint: hidden
@@ -27,12 +27,8 @@ snippets:
         capture_list: ./entry
     -   name: full_output_as_object
         capture_list: ./entry
-        filter_items: ( item |
-            difference(
-            element_value("entry.from.member"),
-            ["any", "{{ untrust_zone }}"]
-            ) | length == 0
-            ) and ( item | element_value("entry.action") == "allow" )
+        filter_items: ( item | difference(element_value("entry.from.member"),["any", "{{ untrust_zone }}"]) | length == 0)
+            and ( item | element_value("entry.action") == "allow" )
 #        filter_items: (item | element_value("entry.from.member") in ["any", "{{ untrust_zone
 #            }}"]) and (item | element_value("entry.action") == "allow")
     -   name: untrust_zone_var
