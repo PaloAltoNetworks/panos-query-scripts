@@ -4,7 +4,7 @@ description: |
     Queries firewall for rules allowing traffic from a specified zone
 type: panos
 labels:
-    collection: Open Port Query
+    collection: lib
     output_template: Report.j2
 
 variables:

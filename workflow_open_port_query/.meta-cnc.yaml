@@ -1,5 +1,5 @@
 name: open_port_setup_workflow
-label: Query NGFW for Open Ports
+label: Query NGFW for Open Ports Workflow
 description: |
   This workflow steps through the elements to determine which ports
   are open to a specified untrusted zone.
