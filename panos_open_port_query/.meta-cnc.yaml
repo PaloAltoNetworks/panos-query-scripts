@@ -1,18 +1,19 @@
-name: panos-open-ports
-label: Query Firewall for Open Port Rules
+name: open_port_query_firewall
+label: Query NGFW for Open Ports
 description: |
-    For Tobi
+    Queries firewall for rules allowing traffic from a specified zone
 type: panos
 labels:
-    collection: Open_Port_Query
+    collection: Open Port Query
     output_template: Report.j2
 
 variables:
 -   name: untrust_zone
-    type_hint: text
-    description: Untrust Zone
+    type_hint: dropdown
+    description: Find ports open to this untrusted zone
     default: internet
-    help_text: ''
+    source: zone_names
+
 snippets:
 -   name: Get_Policies
     cmd: show
