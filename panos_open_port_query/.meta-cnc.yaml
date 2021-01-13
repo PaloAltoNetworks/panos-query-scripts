@@ -23,12 +23,12 @@ snippets:
     cmd: show
     xpath: /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name="vsys1"]/rulebase/security/rules
     outputs:
-    -   name: full_output
+    -   name: full_rulebase
         capture_list: ./entry
     -   name: full_output_as_object
         capture_list: ./entry
         filter_items: ( item | element_value("entry.action") == "allow" ) and
-            (difference((item | element_value("entry.from.member")),["any", "{{ untrust_zone }}"]) | length) <
+            (( item | element_value("entry.from.member") | difference(["any", "{{ untrust_zone }}"]) | length) <
             (item | element_value("entry.from.member") | length))
     -   name: untrust_zone_var
         capture_variable: "{{ untrust_zone }}"
