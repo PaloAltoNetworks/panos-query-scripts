@@ -1,12 +1,14 @@
 # Open Port Query Solution
 
-This solution queries a NGFW to determine which ports are open to an untrusted zone on the firewall.
+This solution queries a NGFW to determine which rules allow traffic to an untrusted zone on the firewall.
 To use this solution, run the _Query NGFW for Open Ports_ workflow, which will:
 
     * Capturing the NGfW's existing zones
     * Querying the NGFW's rulebase for rules allowing traffic from the untrusted zone
     * Outputs the results in a report
 
+With the results, a user can view the specific application and services that are being allowed 
+through the firewall and can, if needed, correlate these to port numbers. 
 
 ## Support Policy
 The code and templates in the repo are released under an as-is, best effort,
