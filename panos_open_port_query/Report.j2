@@ -19,8 +19,8 @@ The automation queried {{ target_var }} for policies rules that allowed traffic 
         {% for rule  in full_output_as_object %}
         <tr>
             <td>{{ rule.entry["@name"] }}</td>
-            <td>{{ rule.entry.application }}</td>
-            <td>{{ rule.entry.service }}</td>
+            <td>{{ rule.entry.application.member }}</td>
+            <td>{{ rule.entry.service.member }}</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -27,8 +27,7 @@ snippets:
         capture_list: ./entry
     -   name: full_output_as_object
         capture_list: ./entry
-        filter_items: ( item | difference(element_value("entry.from.member"),["any", "{{ untrust_zone }}"]) | length == 0)
-            and ( item | element_value("entry.action") == "allow" )
+        filter_items: ( item | element_value("entry.action") == "allow" ) and (( item | difference(element_value("entry.from.member"),["any", "{{ untrust_zone }}"]) | length) < (item | element_value("entry.from.member") | length))
 #        filter_items: (item | element_value("entry.from.member") in ["any", "{{ untrust_zone
 #            }}"]) and (item | element_value("entry.action") == "allow")
     -   name: untrust_zone_var
