@@ -5,6 +5,7 @@ use a 10.0 or later NGFW API to check a set of domains/FQDNs and return their
 
 [Current category list](https://docs.paloaltonetworks.com/pan-os/10-0/pan-os-new-features/content-inspection-features/dns-security-signature-categories.html#:~:text=DNS%20Security%20Categories%20allows%20you,for%20a%20given%20signature%20source.)
 
+### Running the Script
 
 ```python
 python domain_check.py {parameters}
@@ -28,7 +29,7 @@ Running the script will:
 * output the domain and category on screen and in domains_and_categories.csv
 
 
-Known and Potential Issues
+### Known and Potential Issues
 
 The DNS query may encounter a 'Server Busy' response that is not covered in the
 code. Update TBD
@@ -37,7 +38,7 @@ New categories added before code updates will result in an output error due to
 an unknown category value. The goal is to keep the code current as new 
 categories are released
 
-Python Dependencies
+### Python Dependencies
 
 * click: used for input parameter capture
 * skilletlib: library used to interact with the NGFW API
