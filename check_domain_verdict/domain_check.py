@@ -58,14 +58,19 @@ def cli(target_ip, target_port, target_username, target_password, domain):
     print('----------------\n')
 
     # responses give a category code value
-    # TODO: get the complete list
-    category_list = ['benign', 'malware', 'command-and-control']
+    category_list = ['benign', 'malware', 'command-and-control', 'phishing', 'dynamic-dns', 'newly-registered-domain',
+                     'grayware', 'parked', 'proxy-avoidance-anonymizers', 'tbd9', 'tbd10']
 
 
     for item in domain_list:
         # query the device object to get the domain category
+        # print(item)
         cli_cmd = f'<test><dns-proxy><dns-signature><fqdn>{item}</fqdn></dns-signature></dns-proxy></test>'
-        response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False)
+        try:
+            response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False)
+        except:
+            print('oops')
+        # print(response)
         dns_data = json.loads(response)
         category_num = dns_data['dns-signature'][0]['category']
         dns_category = category_list[category_num]
