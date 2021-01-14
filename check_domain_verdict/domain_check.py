@@ -15,10 +15,12 @@
 
 # Authors: Scott Shoaf
 
-import click
+import csv
 import json
 
+import click
 from skilletlib import Panos
+
 
 @click.command()
 @click.option("-ip", "--TARGET_IP", help="IP address of the device (localhost)", type=str, default="localhost")
@@ -27,7 +29,6 @@ from skilletlib import Panos
 @click.option("-p", "--TARGET_PASSWORD", help="Firewall Password (admin)", type=str, default="admin")
 @click.option("-d", "--domain", help="domain list to query", type=str,
               default="use text file")
-
 def cli(target_ip, target_port, target_username, target_password, domain):
     """
     process a list of domains and get verdict results
@@ -45,7 +46,6 @@ def cli(target_ip, target_port, target_username, target_password, domain):
         domain_list = domain.split(',')
         print('\n')
 
-
     # creates a firewall object based on skilletlib and pan-python
     print('getting firewall API key\n')
     device = Panos(api_username=target_username,
@@ -54,6 +54,14 @@ def cli(target_ip, target_port, target_username, target_password, domain):
                    api_port=target_port
                    )
 
+    # create output file
+    with open('domains_and_categories.csv', 'w') as f:
+        writer = csv.DictWriter(
+            f, fieldnames=['domain',
+                           'category']
+        )
+        writer.writeheader()
+
     print('Domain, category')
     print('----------------\n')
 
@@ -61,8 +69,11 @@ def cli(target_ip, target_port, target_username, target_password, domain):
     category_list = ['benign', 'malware', 'command-and-control', 'phishing', 'dynamic-dns', 'newly-registered-domain',
                      'grayware', 'parked', 'proxy-avoidance-anonymizers', 'tbd9', 'tbd10']
 
-
     for item in domain_list:
+
+        # define output as list for csv writer
+        output = []
+
         # query the device object to get the domain category
         # print(item)
         cli_cmd = f'<test><dns-proxy><dns-signature><fqdn>{item}</fqdn></dns-signature></dns-proxy></test>'
@@ -75,6 +86,15 @@ def cli(target_ip, target_port, target_username, target_password, domain):
         category_num = dns_data['dns-signature'][0]['category']
         dns_category = category_list[category_num]
         print(f'{item}, {dns_category}')
+
+        # create output category file
+        output.append(item)
+        output.append(dns_category)
+
+        with open('domains_and_categories.csv', 'a') as f:
+            writer = csv.writer(f)
+            # print(output)
+            writer.writerow(output)
 
     print('\nDomain checks complete')
 
