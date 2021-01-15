@@ -1,6 +1,6 @@
 # Open Port Query Solution
 
-This solution queries a NGFW to determine which rules allow traffic to an untrusted zone on the firewall.
+This solution queries a NGFW to determine which rules allow traffic from an untrusted zone on the firewall.
 To use this solution, run the _Query NGFW for Open Ports_ workflow, which will:
 
     * Capturing the NGfW's existing zones
@@ -9,6 +9,11 @@ To use this solution, run the _Query NGFW for Open Ports_ workflow, which will:
 
 With the results, a user can view the specific application and services that are being allowed 
 through the firewall and can, if needed, correlate these to port numbers. 
+
+
+> This solution is run using Panhandler. For help with Panhandler set-up and use, please reference the 
+> [Quickstart Guide](https://live.paloaltonetworks.com/t5/skillet-tools/install-and-get-started-with-panhandler/ta-p/307916) 
+> in the Live community. 
 
 ## Support Policy
 The code and templates in the repo are released under an as-is, best effort,
