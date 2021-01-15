@@ -3,9 +3,9 @@
 This solution queries a NGFW to determine which rules allow traffic from an untrusted zone on the firewall.
 To use this solution, run the _Query NGFW for Open Ports_ workflow, which will:
 
-    * Capturing the NGfW's existing zones
-    * Querying the NGFW's rulebase for rules allowing traffic from the untrusted zone
-    * Outputs the results in a report
+    * Capture the NGfW's existing zones
+    * Query the NGFW's rulebase for rules allowing traffic from the untrusted zone
+    * Output the results in a report
 
 With the results, a user can view the specific application and services that are being allowed 
 through the firewall and can, if needed, correlate these to port numbers. 
