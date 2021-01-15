@@ -20,6 +20,7 @@ import json
 import click
 from skilletlib import Panos
 
+
 # Queries the PANW firewall to gain Domain Category for given item domain
 def query_domain(item, device):
     category = list()
@@ -70,8 +71,8 @@ def query_url(item, device):
     category.append(item)
     category.append(category_cloud)
     category.append(risk_cloud)
-    category.append(category_local)
-    category.append('unknown') if category_local is 'not-resolved' else category.append(risk_local)
+    category.append('unknown') if category_local == '(Cloud' else category.append(category_local)
+    category.append('unknown') if category_local == 'not-resolved' else category.append(risk_local)
 
     return category
 
@@ -91,12 +92,11 @@ def parse_text_file(infile):
 @click.option("-r", "--TARGET_PORT", help="Port to communicate to device (443)", type=int, default=443)
 @click.option("-u", "--TARGET_USERNAME", help="Firewall Username (admin)", type=str, default="admin")
 @click.option("-p", "--TARGET_PASSWORD", help="Firewall Password (admin)", type=str, default="admin")
-@click.option("-t", "--type", help="Type of check, 'url' or 'domain'", type=str, default ='url')
-@click.option("-i", "--input", help="url list to query", type=str,
-              default="use text file")
+@click.option("-t", "--VERIFY_TYPE", help="Type of check, url or domain", type=str, default="url")
+@click.option("-i", "--INPUT_LOCATION", help="Input a domain or url list", type=str, default="use text file")
 def cli(target_ip, target_port, target_username, target_password, verify_type, input_locale):
     # Assert input types are of valid options
-    if verify_type is not 'domain' or verify_type is not 'url':
+    if verify_type != 'domain' or verify_type != 'url':
         print("Error: Invalid type of check. Must use either 'domain' or 'url'.")
         exit()
 
@@ -124,9 +124,9 @@ def cli(target_ip, target_port, target_username, target_password, verify_type, i
     for item in separated_list:
         category = []
         # Query device object to get the category as a list
-        if verify_type is "domain":
+        if verify_type == "domain":
             category = query_domain(item, device)
-        if verify_type is "url":
+        if verify_type == "url":
             category = query_url(item, device)
 
         # Write the category list to categories.csv
@@ -134,7 +134,7 @@ def cli(target_ip, target_port, target_username, target_password, verify_type, i
             writer = csv.writer(f)
             writer.writerow(category)
 
-    print('\nURL checks complete' if verify_type is 'url' else '\nDomain checks complete')
+    print('\nURL checks complete' if verify_type == 'url' else '\nDomain checks complete')
 
 
 if __name__ == '__main__':
