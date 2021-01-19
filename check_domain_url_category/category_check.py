@@ -74,7 +74,7 @@ def query_url(item, device):
     category.append('unknown') if risk_cloud == '(Cloud' else category.append(risk_cloud)
     category.append('unknown') if category_local == 'not-resolved' else category.append(category_local)
     category.append('unknown') if risk_local == '(Base' else category.append(risk_local)
-    print(category)
+    print(f"{category[0]}, {category[1]}, {category[2]}, {category[3]}, {category[4]}")
 
     # Return the csv output's row
     return category
