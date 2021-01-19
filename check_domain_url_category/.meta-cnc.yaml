@@ -23,11 +23,6 @@ variables:
     default: 192.168.55.10
     type_hint: fqdn_or_ip
 
-  - name: TARGET_PORT
-    description: NGFW Port
-    default: 443
-    type_hint: integer
-
   - name: TARGET_USERNAME
     description: NGFW Username
     default: admin
@@ -60,7 +55,7 @@ variables:
 
   - name: INPUT_LOCALE
     description: list of domains/urls to test
-    default: []
+    default:
     type_hint: list
     toggle_hint:
       source: input_type
