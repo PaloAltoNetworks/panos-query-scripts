@@ -1,0 +1,83 @@
+# skillet preamble information used by panhandler
+# ---------------------------------------------------------------------
+# unique snippet name
+name: checking_category
+# label used for menu selection
+label: query NGFW API to get url/domain category
+description: input one or more URLs/Domains and get their respective categories based on PAN-DB responses
+type: python3
+
+# grouping of like snippets for dynamic menu creation in panhandler
+labels:
+  collection:
+    - PAN-OS
+
+# ---------------------------------------------------------------------
+# end of preamble section
+
+# variables section
+
+variables:
+  - name: target_ip
+    description: NGFW IP or Hostname
+    default: 192.168.55.10
+    type_hint: fqdn_or_ip
+
+  - name: target_port
+    description: NGFW Port
+    default: 443
+    type_hint: integer
+
+  - name: target_username
+    description: NGFW Username
+    default: admin
+    type_hint: text
+
+  - name: target_password
+    description: NGFW Password
+    default: admin
+    type_hint: password
+
+  - name: verify_type
+    description: domain or url
+    default: domain
+    type_hint: text
+
+  - name: input_type
+    description: select to use entered list or file input for testing
+    default: list
+    type_hint: dropdown
+    dd_list:
+      - key: file
+        value: file
+      - key: list
+        value: list
+
+  - name: input_locale
+    description: list of domains/urls to test
+    default: []
+    type_hint: list
+    toggle_hint:
+      source: input_type
+      value: list
+
+  - name: file_upload
+    description: File with url/domain list (named input_list.txt)
+    default: input_list.txt
+    type_hint: file
+    toggle_hint:
+      source: input_type
+      value: list
+
+# ---------------------------------------------------------------------
+# end of variables section
+
+# snippets section
+# ---------------------------------------------------------------------
+snippets:
+  - name: category_check
+    file: category_check.py
+    input_type: cli
+
+# ---------------------------------------------------------------------
+# end of snippets section
