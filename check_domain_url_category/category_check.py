@@ -96,23 +96,15 @@ def parse_text_file(infile):
 @click.option("-u", "--TARGET_USERNAME", help="Firewall Username (admin)", type=str, default="admin")
 @click.option("-p", "--TARGET_PASSWORD", help="Firewall Password (admin)", type=str, default="admin")
 @click.option("-t", "--VERIFY_TYPE", help="Type of check, url or domain", type=str, default="domain")
-@click.option("-i", "--INPUT_LOCALE", help="Input a domain or url list", type=str, default="use text file")
-def cli(target_ip, target_port, target_username, target_password, verify_type, input_locale):
+@click.option("-f", "--INPUT_FILE", help="Filename of input list", type=str, default="input_list.txt")
+def cli(target_ip, target_port, target_username, target_password, verify_type, input_file):
     # Assert input types are of valid options
     if not (verify_type == "domain" or verify_type == "url"):
         print("Error: Invalid type of verification: (-t) must use either 'domain' or 'url'.")
         exit()
 
-    # Gather domains/urls to parse by either reading from text
-    # file or gathering from comma separated list
-    if input_locale == 'use text file':
-        separated_list = parse_text_file('input_list.txt')
-    else:
-        # use the -i option and a comma separated list of url/domains
-        # useful to spot test a url/domain without reading the file
-        print(f"Reading urls/domains from the command line argument.\n")
-        separated_list = input_locale.split(',')
-        print('\n')
+    # Gather domains/urls to parse by reading from text file
+    separated_list = parse_text_file(input_file)
 
     # Creates a firewall object based on skilletlib and pan-python
     print(f"Calling {target_ip} firewall's API to generate an API key.")
