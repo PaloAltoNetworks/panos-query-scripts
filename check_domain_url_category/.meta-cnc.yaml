@@ -67,7 +67,7 @@ variables:
     type_hint: file
     toggle_hint:
       source: input_type
-      value: list
+      value: file
 
 # ---------------------------------------------------------------------
 # end of variables section
