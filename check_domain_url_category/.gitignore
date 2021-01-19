@@ -4,3 +4,4 @@ venv/
 
 # dynamic output csv file
 domains_and_categories.csv
+input_list.tx
