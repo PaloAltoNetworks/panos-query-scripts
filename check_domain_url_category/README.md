@@ -19,17 +19,13 @@ Input parameters:
 * -u = NGFW username (default=admin)
 * -p = NGFW password (default=admin)
 * -t = type of category check, either 'domain' or 'url' (default=domain)  
-* -i = input domain/url list (omit to use an input text file)
-
-> The current version uses a static list file name of input_list.txt to be
-> found in the same directory as the python file
+* -f = input text file of urls/domains to test (absolute or relative path)
 
 Running the script will:
 
 * generate and get the API from the NGFW
 * query the NGFW to get the category for each input domain/url
 * output the domain/url and category on screen and in domain-category-{date}-{time}.csv or url-category-{date}-{time}.csv
-
 
 ### Known and Potential Issues
 
