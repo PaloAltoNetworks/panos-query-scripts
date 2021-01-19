@@ -18,10 +18,11 @@
 import csv
 import json
 import click
+from datetime import datetime
 from skilletlib import Panos
 
 
-# Queries the PANW firewall to gain Domain Category for given item domain
+# Queries the NGFW to gain Domain Category for given item domain
 def query_domain(item, device):
     category = list()
     response = ""
@@ -49,12 +50,12 @@ def query_domain(item, device):
     return category
 
 
-# Queries the PANW firewall to gain URL Category for given item domain
+# Queries the NGFW to gain URL Category and Risk for given item url
 def query_url(item, device):
     category = list()
     response = list()
 
-    # Query the device object to get the url category
+    # Query the device object to get the url test response
     cli_cmd = f'<test><url>{item}</url></test>'
     try:
         response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False).split('\n')
@@ -65,15 +66,17 @@ def query_url(item, device):
     local = response[0]
     cloud = response[1]
 
-    # Parse classification for category and risk
+    # Parse classification for both local & cloud's category and risk
     category_local, risk_local = local.split(" ")[1], local.split(" ")[2]
     category_cloud, risk_cloud = cloud.split(" ")[1], cloud.split(" ")[2]
     category.append(item)
     category.append(category_cloud)
-    category.append(risk_cloud)
-    category.append('unknown') if category_local == '(Cloud' else category.append(category_local)
-    category.append('unknown') if category_local == 'not-resolved' else category.append(risk_local)
+    category.append('unknown') if risk_cloud == '(Cloud' else category.append(risk_cloud)
+    category.append('unknown') if category_local == 'not-resolved' else category.append(category_local)
+    category.append('unknown') if risk_local == '(Base' else category.append(risk_local)
+    print(category)
 
+    # Return the csv output's row
     return category
 
 
@@ -81,7 +84,7 @@ def query_url(item, device):
 def parse_text_file(infile):
     parsed_list = []
     with open(infile) as f:
-        print('\nUsing text file input.\n')
+        print(f'Reading urls/domains from {infile}.\n')
         for line in f.readlines():
             parsed_list.append(line.rstrip())
     return parsed_list
@@ -92,12 +95,12 @@ def parse_text_file(infile):
 @click.option("-r", "--TARGET_PORT", help="Port to communicate to device (443)", type=int, default=443)
 @click.option("-u", "--TARGET_USERNAME", help="Firewall Username (admin)", type=str, default="admin")
 @click.option("-p", "--TARGET_PASSWORD", help="Firewall Password (admin)", type=str, default="admin")
-@click.option("-t", "--VERIFY_TYPE", help="Type of check, url or domain", type=str, default="url")
-@click.option("-i", "--INPUT_LOCATION", help="Input a domain or url list", type=str, default="use text file")
+@click.option("-t", "--VERIFY_TYPE", help="Type of check, url or domain", type=str, default="domain")
+@click.option("-i", "--INPUT_LOCALE", help="Input a domain or url list", type=str, default="use text file")
 def cli(target_ip, target_port, target_username, target_password, verify_type, input_locale):
     # Assert input types are of valid options
-    if verify_type != 'domain' or verify_type != 'url':
-        print("Error: Invalid type of check. Must use either 'domain' or 'url'.")
+    if not (verify_type == "domain" or verify_type == "url"):
+        print("Error: Invalid type of verification: (-t) must use either 'domain' or 'url'.")
         exit()
 
     # Gather domains/urls to parse by either reading from text
@@ -105,20 +108,23 @@ def cli(target_ip, target_port, target_username, target_password, verify_type, i
     if input_locale == 'use text file':
         separated_list = parse_text_file('input_list.txt')
     else:
-        # use the -i option and a comma separated list of urls
-        # useful to spot test a url without reading the file
+        # use the -i option and a comma separated list of url/domains
+        # useful to spot test a url/domain without reading the file
+        print(f"Reading urls/domains from the command line argument.\n")
         separated_list = input_locale.split(',')
         print('\n')
 
     # Creates a firewall object based on skilletlib and pan-python
-    print("Getting firewall API key.\n")
+    print(f"Calling {target_ip} firewall's API to generate an API key.")
     device = Panos(api_username=target_username,
                    api_password=target_password,
                    hostname=target_ip,
                    api_port=target_port)
 
-    print('URL, cloud category, cloud risk, local category, local risk')
-    print('-----------------------------------------------------------\n')
+    file_date = datetime.now().strftime('%Y-%m-%dT%H-%M-%SZ')
+    print('\nDomain, category\n----------------\n' if verify_type == 'domain'
+          else '\nURL, cloud category, cloud risk, local category, '
+               'local risk\n-----------------------------------------------------------\n')
 
     # Iterate through each domain/url to get category & save to csv
     for item in separated_list:
@@ -130,11 +136,11 @@ def cli(target_ip, target_port, target_username, target_password, verify_type, i
             category = query_url(item, device)
 
         # Write the category list to categories.csv
-        with open('category.csv', 'a', newline='') as f:
+        with open(f'{verify_type}-category-{file_date}.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(category)
 
-    print('\nURL checks complete' if verify_type == 'url' else '\nDomain checks complete')
+    print('\nURL checks completed.' if verify_type == 'url' else '\nDomain checks completed.')
 
 
 if __name__ == '__main__':
