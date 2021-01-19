@@ -18,30 +18,35 @@ labels:
 # variables section
 
 variables:
-  - name: target_ip
+  - name: TARGET_IP
     description: NGFW IP or Hostname
     default: 192.168.55.10
     type_hint: fqdn_or_ip
 
-  - name: target_port
+  - name: TARGET_PORT
     description: NGFW Port
     default: 443
     type_hint: integer
 
-  - name: target_username
+  - name: TARGET_USERNAME
     description: NGFW Username
     default: admin
     type_hint: text
 
-  - name: target_password
+  - name: TARGET_PASSWORD
     description: NGFW Password
     default: admin
     type_hint: password
 
-  - name: verify_type
-    description: domain or url
+  - name: VERIFY_TYPE
+    description: Type of input to categorize
     default: domain
-    type_hint: text
+    type_hint: dropdown
+    dd_list:
+      - key: domain
+        value: domain
+      - key: url
+        value: url
 
   - name: input_type
     description: select to use entered list or file input for testing
@@ -53,7 +58,7 @@ variables:
       - key: list
         value: list
 
-  - name: input_locale
+  - name: INPUT_LOCALE
     description: list of domains/urls to test
     default: []
     type_hint: list
