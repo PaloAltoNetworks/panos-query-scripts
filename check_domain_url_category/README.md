@@ -27,6 +27,12 @@ Running the script will:
 * query the NGFW to get the category for each input domain/url
 * output the domain/url and category on screen and in domain-category-{date}-{time}.csv or url-category-{date}-{time}.csv
 
+Also, this solution can be run in [Panhandler](https://live.paloaltonetworks.com/t5/skillet-tools/install-and-get-started-with-panhandler/ta-p/307916)
+by importing this repository into your instance of Panhandler and playing the python3 skillet called *query NGFW API to get url/domain category*.
+The automation will ask for the input parameters through the Panhandler user interface, generate its own virtual environment, 
+run the *category_check.py* script, and output the categorizations to the screen. 
+
+
 ### Known and Potential Issues
 
 The DNS query may encounter a 'Server Busy' response that is not covered in the
