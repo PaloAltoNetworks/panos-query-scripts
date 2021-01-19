@@ -43,31 +43,10 @@ variables:
       - key: url
         value: url
 
-  - name: input_type
-    description: select to use entered list or file input for testing
-    default: list
-    type_hint: dropdown
-    dd_list:
-      - key: file
-        value: file
-      - key: list
-        value: list
-
-  - name: INPUT_LOCALE
-    description: list of domains/urls to test
-    default:
-    type_hint: list
-    toggle_hint:
-      source: input_type
-      value: list
-
-  - name: file_upload
-    description: File with url/domain list (named input_list.txt)
+  - name: INPUT_FILE
+    description: Filename of input domain/url list
     default: input_list.txt
     type_hint: file
-    toggle_hint:
-      source: input_type
-      value: file
 
 # ---------------------------------------------------------------------
 # end of variables section
