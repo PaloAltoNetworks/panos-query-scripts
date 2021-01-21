@@ -134,9 +134,8 @@ def cli(target_ip, target_port, target_username, target_password, verify_type, i
             writer.writerow(category)
 
     cwd = os.getcwd()
-    print(f"Outputted category results to: {cwd}/{verify_type}-category-{file_date}.csv")
-
     print('\nURL checks completed.' if verify_type == 'url' else '\nDomain checks completed.')
+    print(f"\nOutputted category results to: {cwd}/{verify_type}-category-{file_date}.csv")
 
 
 if __name__ == '__main__':
