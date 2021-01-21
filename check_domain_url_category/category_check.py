@@ -18,9 +18,12 @@
 import csv
 import json
 import os
-import click
+
+import time
 from datetime import datetime
-from skilletlib import Panos
+
+import click
+from skilletlib import Panos, exceptions
 
 
 # Queries the NGFW to gain Domain Category for given item domain
@@ -91,6 +94,24 @@ def parse_text_file(infile):
     return parsed_list
 
 
+# Verifies connection with PAN-OS device is successful by looping through
+# an op command until there's a successful op command
+def verify_server_connection(device):
+    while True:
+        try:
+            test_domain = "test-c2.testpanw.com"
+            cli_cmd = f'<test><dns-proxy><dns-signature><fqdn>{test_domain}</fqdn></dns-signature></dns-proxy></test>'
+            response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False, parse_result=False)
+            if response.find("success") != -1:
+                print("Firewall can successfully connect to desired servers.\n")
+                break
+            else:
+                print(f"Error occurred, retrying in 10 seconds. The response was: {response}\n")
+        except exceptions.PanoplyException as e:
+            print(f"Error occurred, retrying in 10 seconds: {e}")
+        time.sleep(10)
+
+
 @click.command()
 @click.option("-ip", "--TARGET_IP", help="IP address of the device (localhost)", type=str, default="localhost")
 @click.option("-r", "--TARGET_PORT", help="Port to communicate to device (443)", type=int, default=443)
@@ -104,16 +125,21 @@ def cli(target_ip, target_port, target_username, target_password, verify_type, i
         print("Error: Invalid type of verification: (-t) must use either 'domain' or 'url'.")
         exit()
 
-    # Gather domains/urls to parse by reading from text file
-    separated_list = parse_text_file(input_file)
-
     # Creates a firewall object based on skilletlib and pan-python
-    print(f"Calling {target_ip} firewall's API to generate an API key.")
+    print(f"Calling {target_ip} firewall's API to generate an API key.\n")
     device = Panos(api_username=target_username,
                    api_password=target_password,
                    hostname=target_ip,
                    api_port=target_port)
 
+    # Wait for a successful connection with device
+    print("Verifying firewall can connect to desired servers.\n")
+    verify_server_connection(device)
+
+    # Gather domains/urls to parse by reading from text file
+    separated_list = parse_text_file(input_file)
+
+    # Save date for output file naming convention
     file_date = datetime.now().strftime('%Y-%m-%dT%H-%M-%SZ')
     print('\nDomain, category\n----------------\n' if verify_type == 'domain'
           else '\nURL, cloud category, cloud risk, local category, '
