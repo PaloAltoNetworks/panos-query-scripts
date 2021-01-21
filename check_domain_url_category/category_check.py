@@ -17,6 +17,7 @@
 
 import csv
 import json
+import os
 import click
 from datetime import datetime
 from skilletlib import Panos
@@ -131,6 +132,9 @@ def cli(target_ip, target_port, target_username, target_password, verify_type, i
         with open(f'{verify_type}-category-{file_date}.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(category)
+
+    cwd = os.getcwd()
+    print(f"Outputted category results to: {cwd}/{verify_type}-category-{file_date}.csv")
 
     print('\nURL checks completed.' if verify_type == 'url' else '\nDomain checks completed.')
 
