@@ -102,7 +102,7 @@ def verify_server_connection(device):
             test_domain = "test-c2.testpanw.com"
             cli_cmd = f'<test><dns-proxy><dns-signature><fqdn>{test_domain}</fqdn></dns-signature></dns-proxy></test>'
             response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False, parse_result=False)
-            if response.find("success") != -1:
+            if response.find("category") != -1:
                 print("Firewall can successfully connect to desired servers.\n")
                 break
             else:
