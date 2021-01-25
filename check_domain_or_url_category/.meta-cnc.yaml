@@ -11,6 +11,7 @@ type: python3
 labels:
   collection:
     - PAN-OS
+    - PAN-OS Queries
 
 # ---------------------------------------------------------------------
 # end of preamble section

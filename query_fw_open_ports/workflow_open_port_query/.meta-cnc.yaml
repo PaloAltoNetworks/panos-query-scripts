@@ -8,7 +8,7 @@ type: workflow
 
 labels:
     collection:
-      - Open Port Query
+      - PAN-OS Queries
 
 variables:
   - name: TARGET_IP
