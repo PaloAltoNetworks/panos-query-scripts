@@ -1,0 +1,35 @@
+<div>
+<h5>Query Parameters</h5>
+The automation queried {{ target_var }} for policies rules that allowed traffic from either the 'any' zone or the
+'{{ untrust_zone_var }}' zone.
+
+<br/>
+<br/>
+
+<h5>Rulebase Matches Found</h5>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Rule Name</th>
+            <th>Application</th>
+            <th>Service</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rule  in full_output_as_object %}
+        <tr>
+            <td>{{ rule.entry["@name"] }}</td>
+            <td>{{ rule.entry.application.member }}</td>
+            <td>{{ rule.entry.service.member }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br/>
+<br/>
+
+<h5>Full JSON Rulebase Output</h5>
+To view the resulting filtered rulebase, find the variable <var>full_output_as_object</var> in <a href="/view_context">the Context</a>,
+located in the top right dropdown menu.
+</div>

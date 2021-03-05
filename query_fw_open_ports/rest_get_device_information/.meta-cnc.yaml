@@ -1,0 +1,42 @@
+name: open_port_get_device_information
+label: Output Value Capturing from a PAN-OS Device
+
+description: |
+  Get a list of zones to be used as dropdown menu options
+  for additional skillets
+type: rest
+
+labels:
+  collection:
+    - lib
+
+variables:
+  - name: TARGET_IP
+    description: Host
+    default: 0.0.0.0
+    type_hint: hidden
+  - name: TARGET_USERNAME
+    description: Username
+    default: admin
+    type_hint: hidden
+  - name: TARGET_PASSWORD
+    description: Password
+    default: admin
+    type_hint: hidden
+
+snippets:
+  - name: key_gen
+    path: https://{{ TARGET_IP }}/api/?type=keygen&user={{ TARGET_USERNAME }}&password={{ TARGET_PASSWORD }}
+    output_type: xml
+    outputs:
+      - name: api_key
+        capture_pattern: result/key
+
+  - name: zones_list
+    path: |
+      https://{{ TARGET_IP }}/api/?type=config&action=set&action=complete&xpath=/config/devices/entry
+      [@name='localhost.localdomain']/vsys/entry[@name='vsys1']/zone&key={{ api_key }}
+    output_type: xml
+    outputs:
+      - name: zone_names
+        capture_pattern: ./completions/completion//@value

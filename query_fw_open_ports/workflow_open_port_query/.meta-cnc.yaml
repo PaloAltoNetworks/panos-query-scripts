@@ -1,0 +1,32 @@
+name: open_port_setup_workflow
+label: Query NGFW for Open Ports Workflow
+description: |
+  This workflow steps through the elements to determine which ports
+  are open to a specified untrusted zone.
+
+type: workflow
+
+labels:
+    collection:
+      - PAN-OS Queries
+
+variables:
+  - name: TARGET_IP
+    description: NGFW IP or Hostname
+    default: 192.168.55.10
+    type_hint: fqdn_or_ip
+  - name: TARGET_USERNAME
+    description: NGFW Username
+    default: admin
+    type_hint: text
+  - name: TARGET_PASSWORD
+    description: NGFW Password
+    default: admin
+    type_hint: password
+
+snippets:
+  # get existing device values to generate dropdowns in the other skillet
+  - name: open_port_get_device_information
+
+  # queries the firewall for rules allowing traffic from specified port
+  - name: open_port_query_firewall

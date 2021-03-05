@@ -1,0 +1,63 @@
+# skillet preamble information used by panhandler
+# ---------------------------------------------------------------------
+# unique snippet name
+name: checking_category
+# label used for menu selection
+label: query NGFW API to get url/domain category
+description: input one or more URLs/Domains and get their respective categories based on PAN-DB responses
+type: python3
+
+# grouping of like snippets for dynamic menu creation in panhandler
+labels:
+  collection:
+    - PAN-OS
+    - PAN-OS Queries
+
+# ---------------------------------------------------------------------
+# end of preamble section
+
+# variables section
+
+variables:
+  - name: TARGET_IP
+    description: NGFW IP or Hostname
+    default: 192.168.55.10
+    type_hint: fqdn_or_ip
+
+  - name: TARGET_USERNAME
+    description: NGFW Username
+    default: admin
+    type_hint: text
+
+  - name: TARGET_PASSWORD
+    description: NGFW Password
+    default: admin
+    type_hint: password
+
+  - name: VERIFY_TYPE
+    description: Type of input to categorize
+    default: domain
+    type_hint: dropdown
+    dd_list:
+      - key: domain
+        value: domain
+      - key: url
+        value: url
+
+  - name: INPUT_FILE
+    description: Filename of input domain/url list
+    default: input_list.txt
+    type_hint: file
+
+# ---------------------------------------------------------------------
+# end of variables section
+
+# snippets section
+# ---------------------------------------------------------------------
+snippets:
+  - name: category_check
+    file: category_check.py
+    input_type: cli
+
+# ---------------------------------------------------------------------
+# end of snippets section

@@ -1,0 +1,7 @@
+# python venv
+venv/
+env/
+
+# IDE dirs
+.idea/
+.vscode/
