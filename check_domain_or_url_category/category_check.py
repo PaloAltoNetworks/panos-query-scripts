@@ -99,10 +99,10 @@ def parse_text_file(infile):
 def verify_server_connection(device):
     while True:
         try:
-            test_domain = "test-c2.testpanw.com"
-            cli_cmd = f'<test><dns-proxy><dns-signature><fqdn>{test_domain}</fqdn></dns-signature></dns-proxy></test>'
+            test_domain = "www.google.com"
+            cli_cmd = f'<test><url>{test_domain}</url></test>'
             response = device.execute_op(cmd_str=cli_cmd, cmd_xml=False, parse_result=False)
-            if response.find("category") != -1:
+            if response.find("result") != -1:
                 print("Firewall can successfully connect to desired servers.\n")
                 break
             else:
